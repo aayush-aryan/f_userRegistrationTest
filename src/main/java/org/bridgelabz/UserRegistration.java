@@ -6,6 +6,7 @@ public class UserRegistration {
     private static Pattern FIRST_NAME_PATTERN = Pattern.compile("^[A-Z][a-z]{2,}$");
     private static Pattern LAST_NAME_PATTERN = Pattern.compile("^[A-Z][a-z]{2,}$");
     private static Pattern EMAIL = Pattern.compile("^[\\w-_\\.?+]{2,}[\\w]\\@([\\w]+\\.)+[\\w]+[\\w]$");
+    private static Pattern PHONE_NUMBER =Pattern.compile("^[1-9]{2}[-][6-9][0-9]{9}$");
 
     boolean isValid = false;
     static boolean isValidEmail=false;
@@ -33,5 +34,12 @@ public class UserRegistration {
         }
         return isValidEmail;
 
+    }
+    public boolean validateUserMobileNumber(String mobileNumber)throws MyException {
+        isValid=PHONE_NUMBER.matcher(mobileNumber).matches();
+        if (!isValid){
+            throw new MyException("giveProperPhoneNumber");
+        }
+        return isValid;
     }
 }
