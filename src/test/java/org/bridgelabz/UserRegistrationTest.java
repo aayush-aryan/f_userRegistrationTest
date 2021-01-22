@@ -79,4 +79,31 @@ public class UserRegistrationTest {
         Assert.assertFalse(userLastName);
     }
 
+    @Test
+    public void givenEmail_WhenValid_ShouldReturnTrue() {
+        String email = "abc.xyz@bl.co.in";
+        boolean userEmail = true;
+        try{
+            userEmail = userRegistration.validateEmail(email);
+
+        }catch (MyException myException){
+           myException.printStackTrace();
+        }
+        Assert.assertTrue(userEmail);
+    }
+
+    @Test
+    public void givenEmail_WhenValid_ShouldReturnFalse() {
+        String email = "567@bl";
+        boolean userEmail = false;
+        try{
+            userEmail = userRegistration.validateEmail(email);
+
+        }catch (MyException myException){
+            myException.printStackTrace();
+        }
+        Assert.assertFalse(userEmail);
+    }
+
+
 }
