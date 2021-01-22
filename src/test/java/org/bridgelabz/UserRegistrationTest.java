@@ -27,8 +27,8 @@ public class UserRegistrationTest {
             String firstName = "aayush";
             boolean userFirstName = userRegistration.validateUserFirstName(firstName);
             Assert.assertFalse(userFirstName);
-        }catch (MyException e){
-            System.out.println(e.getMessage());
+        }catch (MyException myException){
+            System.out.println(myException.getMessage());
         }
 
     }
@@ -39,10 +39,44 @@ public class UserRegistrationTest {
         boolean userFirstName= false;
         try {
             userFirstName = userRegistration.validateUserFirstName(firstName);
-        } catch (MyException e) {
-            System.out.println(e.getMessage());
+        } catch (MyException myException) {
+            System.out.println(myException.getMessage());
         }
         Assert.assertFalse(userFirstName);
+    }
+    @Test
+    public void givenLastName_whenProper_shouldReturnTrue(){
+        String lastName="Aryan";
+        boolean userLastName= false;
+        try {
+            userLastName = userRegistration.validateUserLastName(lastName);
+        } catch (MyException myException) {
+            myException.printStackTrace();
+        }
+        Assert.assertTrue(userLastName);
+    }
+
+    @Test
+    public void givenLastName_startingWithSmallerLetter_shouldReturnFalse(){
+        String lastName="aryan";
+        boolean userLastName= false;
+        try {
+            userLastName = userRegistration.validateUserLastName(lastName);
+        } catch (MyException myException) {
+            myException.printStackTrace();
+        }
+        Assert.assertFalse(userLastName);
+    }
+    @Test
+    public void givenLastName_byLengthWhenInvalid_shouldReturnFalse() {
+        String lastName = "Ar";
+        boolean userLastName = false;
+        try {
+            userLastName = userRegistration.validateUserLastName(lastName);
+        } catch (MyException myException) {
+            myException.printStackTrace();
+        }
+        Assert.assertFalse(userLastName);
     }
 
 }
