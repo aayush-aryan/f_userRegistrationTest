@@ -104,6 +104,37 @@ public class UserRegistrationTest {
         }
         Assert.assertFalse(userEmail);
     }
-
+    public void givenMobileNumberWithCountryCode_whenProper_shouldReturnTrue() {
+        String mobileNumber="91-8356764578";
+        boolean userMobileNumber = false;
+        try {
+            userMobileNumber = userRegistration.validateUserMobileNumber(mobileNumber);
+        } catch (MyException e) {
+            e.printStackTrace();
+        }
+        Assert.assertTrue(userMobileNumber);
+    }
+    @Test
+    public void givenMobileNumberWithoutCountryCode_whenInvalid_shouldReturnFalse() {
+        String mobileNumber="8356764578";
+        boolean userMobileNumber = false;
+        try {
+            userMobileNumber = userRegistration.validateUserMobileNumber(mobileNumber);
+        } catch (MyException myexception) {
+            myexception.printStackTrace();
+        }
+        Assert.assertFalse(userMobileNumber);
+    }
+    @Test
+    public void givenMobileNumberLessThenTenDigit_whenInvalid_shouldReturnFalse() {
+        String mobileNumber="91-356764578";
+        boolean userMobileNumber = false;
+        try {
+            userMobileNumber = userRegistration.validateUserMobileNumber(mobileNumber);
+        } catch (MyException myexception) {
+            myexception.printStackTrace();
+        }
+        Assert.assertFalse(userMobileNumber);
+    }
 
 }
