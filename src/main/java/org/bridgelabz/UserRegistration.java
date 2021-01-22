@@ -5,8 +5,10 @@ import java.util.regex.Pattern;
 public class UserRegistration {
     private static Pattern FIRST_NAME_PATTERN = Pattern.compile("^[A-Z][a-z]{2,}$");
     private static Pattern LAST_NAME_PATTERN = Pattern.compile("^[A-Z][a-z]{2,}$");
+    private static Pattern EMAIL = Pattern.compile("^[\\w-_\\.?+]{2,}[\\w]\\@([\\w]+\\.)+[\\w]+[\\w]$");
 
     boolean isValid = false;
+    static boolean isValidEmail=false;
     public boolean validateUserFirstName(String firstName) throws MyException {
         isValid=FIRST_NAME_PATTERN.matcher(firstName).matches();
         if(!isValid){
@@ -22,5 +24,14 @@ public class UserRegistration {
             throw new MyException("LastNameShouldStartsWithCapsLetter");
         }
         return isValid;
+    }
+
+    public static boolean validateEmail(String email)throws MyException {
+        isValidEmail = EMAIL.matcher(email).matches();
+        if(!isValidEmail){
+            throw new MyException("EmailFormatBeProper");
+        }
+        return isValidEmail;
+
     }
 }
