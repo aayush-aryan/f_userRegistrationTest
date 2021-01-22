@@ -1,13 +1,10 @@
-package org.bridgelabztest;
-import org.bridgelabz.MyException;
-import org.bridgelabz.UserRegistration;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+package org.bridgelabz;
+
+import org.junit.*;
 
 public class UserRegistrationTest {
     UserRegistration userRegistration;
-    public static final String firstNamePattern ="^[A-Z][a-z]{2,}";
+    public static final String firstNamePattern ="^[A-Z]{1}[a-z]{2,}";
 
     @Before
     public void setup(){
@@ -22,6 +19,30 @@ public class UserRegistrationTest {
         } catch (MyException myException) {
             System.out.println(myException.getMessage());
         }
+    }
+
+    @Test
+    public void givenFirstName_startingWithSmallerLetter_shouldReturnFalse() {
+        try {
+            String firstName = "aayush";
+            boolean userFirstName = userRegistration.validateUserFirstName(firstName);
+            Assert.assertFalse(userFirstName);
+        }catch (MyException e){
+            System.out.println(e.getMessage());
+        }
+
+    }
+
+    @Test
+    public void givenFirstName_byLengthWhenInvalid_shouldReturnFalse(){
+        String firstName="Aa";
+        boolean userFirstName= false;
+        try {
+            userFirstName = userRegistration.validateUserFirstName(firstName);
+        } catch (MyException e) {
+            System.out.println(e.getMessage());
+        }
+        Assert.assertFalse(userFirstName);
     }
 
 }
