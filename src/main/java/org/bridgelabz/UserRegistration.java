@@ -8,6 +8,7 @@ public class UserRegistration {
     private static Pattern EMAIL = Pattern.compile("^[\\w-_\\.?+]{2,}[\\w]\\@([\\w]+\\.)+[\\w]+[\\w]$");
     private static Pattern PHONE_NUMBER =Pattern.compile("^[1-9]{2}[-][6-9][0-9]{9}$");
     private static Pattern PASSWORD_FIRST_RULE =Pattern.compile("^[a-zA-Z0-9]{8,}");
+    private static Pattern PASSWORD_SECOND_RULE = Pattern.compile("^[A-Z]{1,}[a-zA-Z0-9]{7,}");
 
     boolean isValid = false;
     static boolean isValidEmail=false;
@@ -47,6 +48,13 @@ public class UserRegistration {
         isValid=PASSWORD_FIRST_RULE.matcher(password).matches();
         if (!isValid){
             throw new MyException("PasswordShouldBeMinimumEightCharacter");
+        }
+        return isValid;
+    }
+    public boolean validatePasswordSecondRuleAtleastOneUpperCase(String password)throws MyException {
+        isValid=PASSWORD_SECOND_RULE.matcher(password).matches();
+        if (!isValid){
+            throw new MyException("PasswordAtLeastContainOneUpperCaseLetter");
         }
         return isValid;
     }
