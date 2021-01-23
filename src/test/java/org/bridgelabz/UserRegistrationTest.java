@@ -1,9 +1,17 @@
 package org.bridgelabz;
-
 import org.junit.*;
 
 public class UserRegistrationTest {
     UserRegistration userRegistration;
+
+    public static final String firstNamePattern ="^[A-Z][a-z]{2,}$";
+    public static String lastNamePattern = "^[A-Z][a-z]{2,}$";
+    private static String email = "^[\\w-_\\.?+]{2,}[\\w]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+    private static String phoneNumber ="^[1-9]{2}[-][6-9][0-9]{9}$";
+
+    private static String passwordFirstRule ="^[a-zA-Z0-9]{8,}";
+    private static String passwordSecondRule = "^[A-Z]{1,}[a-zA-Z0-9]{7,}";
+    private static String passwordThirdRule = "^[0-9]{1,}[a-zA-Z0-9]{7,}";
 
     @Before
     public void setup(){
@@ -236,4 +244,95 @@ public class UserRegistrationTest {
         }
         Assert.assertFalse(passwordRule);
     }
+    @Test
+    public void givenFirstname_whenProper_shouldReturnTrue(){
+        boolean result= userRegistration .validation("Aayush" ,firstNamePattern);
+        Assert.assertTrue(result);
+    }
+    @Test
+    public void givenFirstname_startingWithSmallerLetter_shouldReturnFalse() {
+        boolean result= userRegistration.validation("aayush" ,firstNamePattern);
+        Assert.assertFalse(result);
+    }
+
+    @Test
+    public void givenFirstname_byLengthWhenInvalid_shouldReturnFalse(){
+        boolean result= userRegistration.validation("Aa" ,firstNamePattern);
+        Assert.assertFalse(result);
+    }
+    @Test
+    public void givenLastname_whenProper_shouldReturnTrue(){
+        boolean result= userRegistration.validation("Aryan" ,lastNamePattern);
+        Assert.assertTrue(result);
+    }
+    @Test
+    public void givenLastname_startingWithSmallerLetter_shouldReturnFalse() {
+        boolean result= userRegistration.validation("aryan" ,lastNamePattern);
+        Assert.assertFalse(result);
+    }
+
+    @Test
+    public void givenLastname_byLengthWhenInvalid_shouldReturnFalse(){
+        boolean result= userRegistration.validation("Ar",lastNamePattern);
+        Assert.assertFalse(result);
+    }
+    @Test
+    public void givenMobilenumberWithCountryCode_whenProper_shouldReturnTrue() {
+        boolean result= userRegistration.validation("91-8736949100" ,phoneNumber);
+        Assert.assertTrue(result);
+    }
+    @Test
+    public void givenMobilenumberWithoutCountryCode_whenInvalid_shouldReturnFalse() {
+        boolean result= userRegistration.validation("8736949100" ,phoneNumber);
+        Assert.assertFalse(result);
+    }
+    @Test
+    public void givenMobilenumberLessThenTenDigit_whenInvalid_shouldReturnFalse() {
+        boolean result= userRegistration.validation("91-36949100" ,phoneNumber);
+        Assert.assertFalse(result);
+
+    }
+    @Test
+    public void givenPasswordHavingMinimumeightCharacters_whenValid_shouldReturnTrue(){
+        boolean result= userRegistration.validation("adghhfrt" ,passwordFirstRule);
+        Assert.assertTrue(result);
+    }
+    @Test
+    public void givenPasswordHavingLessTheneightCharacters_whenInvalid_shouldReturnFalse(){
+        boolean result= userRegistration.validation("afrt" ,passwordFirstRule);
+        Assert.assertFalse(result);
+    }
+    @Test
+    public void givenPasswordHavingatleastOneUpperCase_whenValid_shouldReturnTrue(){
+        boolean result= userRegistration.validation("Abcdefghi" ,passwordSecondRule);
+        Assert.assertTrue(result);
+    }
+    @Test
+    public void givenPasswordHavingnotUpperCase_whenInvalid_shouldReturnFalse(){
+        boolean result= userRegistration.validation("abcdefghi" ,passwordSecondRule);
+        Assert.assertFalse(result);
+    }
+    @Test
+    public void givenPasswordHaving_NumericValue_whenInvalid_shouldReturnFalse() {
+        boolean result = userRegistration.validation("23456789", passwordSecondRule);
+        Assert.assertFalse(result);
+    }
+
+
+    @Test
+    public void givenPasswordHavingatleastNumericNumber_whenValid_shouldReturnTrue(){
+        boolean result= userRegistration.validation("2dfghijk" ,passwordThirdRule);
+        Assert.assertTrue(result);
+    }
+    @Test
+    public void givenPassword_NotHavingNumericNumber_whenInvalid_shouldReturnFalse(){
+        boolean result= userRegistration.validation("dfghijkty" ,passwordThirdRule);
+        Assert.assertFalse(result);
+    }
+    @Test
+    public void givenPassword_NotHavingEightCharacters_whenInvalid_shouldReturnFalse(){
+        boolean result= userRegistration.validation("dfgh2" ,passwordThirdRule);
+        Assert.assertFalse(result);
+    }
+
 }
