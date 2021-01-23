@@ -4,7 +4,6 @@ import org.junit.*;
 
 public class UserRegistrationTest {
     UserRegistration userRegistration;
-    public static final String firstNamePattern ="^[A-Z]{1}[a-z]{2,}";
 
     @Before
     public void setup(){
@@ -135,6 +134,29 @@ public class UserRegistrationTest {
             myexception.printStackTrace();
         }
         Assert.assertFalse(userMobileNumber);
+    }
+
+    @Test
+    public void givenPasswordHavingMinimumEightCharacters_whenValid_shouldReturnTrue(){
+        String password="dgfghhhjA";
+        boolean passwordFirstRule = false;
+        try {
+            passwordFirstRule = userRegistration.validatePasswordFirstRule(password);
+        } catch (MyException e) {
+            e.printStackTrace();
+        }
+        Assert.assertTrue(passwordFirstRule);
+    }
+    @Test
+    public void givenPasswordHavingLessThenEightCharacters_whenInvalid_shouldReturnFalse(){
+        String password="dghjA";
+        boolean passwordFirstRule = false;
+        try {
+            passwordFirstRule = userRegistration.validatePasswordFirstRule(password);
+        } catch (MyException e) {
+            e.printStackTrace();
+        }
+        Assert.assertFalse(passwordFirstRule);
     }
 
 }
