@@ -158,5 +158,37 @@ public class UserRegistrationTest {
         }
         Assert.assertFalse(passwordFirstRule);
     }
-
+    @Test
+    public void givenPasswordHavingAtleastOneUpperCase_whenValid_shouldReturnTrue(){
+        String password="Aghhhjjj";
+        boolean passwordFirstRule = false;
+        try {
+            passwordFirstRule = userRegistration.validatePasswordSecondRuleAtleastOneUpperCase(password);
+        } catch (MyException e) {
+            e.printStackTrace();
+        }
+        Assert.assertTrue(passwordFirstRule);
+    }
+    @Test
+    public void givenPasswordHavingNotUpperCase_whenInvalid_shouldReturnFalse(){
+        String password="rghhhjjj";
+        boolean passwordFirstRule = false;
+        try {
+            passwordFirstRule = userRegistration.validatePasswordSecondRuleAtleastOneUpperCase(password);
+        } catch (MyException e) {
+            e.printStackTrace();
+        }
+        Assert.assertFalse(passwordFirstRule);
+    }
+    @Test
+    public void givenPasswordHavingNumericValue_whenInvalid_shouldReturnFalse(){
+        String password="23456789";
+        boolean passwordFirstRule = false;
+        try {
+            passwordFirstRule = userRegistration.validatePasswordSecondRuleAtleastOneUpperCase(password);
+        } catch (MyException e) {
+            e.printStackTrace();
+        }
+        Assert.assertFalse(passwordFirstRule);
+    }
 }
