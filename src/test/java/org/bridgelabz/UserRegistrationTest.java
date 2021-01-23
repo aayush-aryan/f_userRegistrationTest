@@ -225,4 +225,15 @@ public class UserRegistrationTest {
         }
         Assert.assertFalse(passwordThirdRule);
     }
+    @Test
+    public void givenPasswordNotHavingExactlyOneSpecialCharacters_whenValid_shouldReturnTrue(){
+        String password="#14AAa94@aayu";
+        boolean passwordRule = false;
+        try {
+            passwordRule = userRegistration.validatePasswordFourthRuleExactlyOneSpecialCharacter(password);
+        } catch (MyException e) {
+            e.printStackTrace();
+        }
+        Assert.assertFalse(passwordRule);
+    }
 }
