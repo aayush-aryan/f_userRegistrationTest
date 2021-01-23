@@ -7,6 +7,7 @@ public class UserRegistration {
     private static Pattern LAST_NAME_PATTERN = Pattern.compile("^[A-Z][a-z]{2,}$");
     private static Pattern EMAIL = Pattern.compile("^[\\w-_\\.?+]{2,}[\\w]\\@([\\w]+\\.)+[\\w]+[\\w]$");
     private static Pattern PHONE_NUMBER =Pattern.compile("^[1-9]{2}[-][6-9][0-9]{9}$");
+    private static Pattern PASSWORD_FIRST_RULE =Pattern.compile("^[a-zA-Z0-9]{8,}");
 
     boolean isValid = false;
     static boolean isValidEmail=false;
@@ -39,6 +40,13 @@ public class UserRegistration {
         isValid=PHONE_NUMBER.matcher(mobileNumber).matches();
         if (!isValid){
             throw new MyException("giveProperPhoneNumber");
+        }
+        return isValid;
+    }
+    public boolean validatePasswordFirstRule(String password)throws MyException{
+        isValid=PASSWORD_FIRST_RULE.matcher(password).matches();
+        if (!isValid){
+            throw new MyException("PasswordShouldBeMinimumEightCharacter");
         }
         return isValid;
     }
