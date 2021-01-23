@@ -1,7 +1,11 @@
 package org.bridgelabz;
 
 import java.util.regex.Pattern;
+@FunctionalInterface
+interface IUserRegistration {
 
+    boolean validateUser(String userInput,String pattern);
+}
 public class UserRegistration {
     private static Pattern FIRST_NAME_PATTERN = Pattern.compile("^[A-Z][a-z]{2,}$");
     private static Pattern LAST_NAME_PATTERN = Pattern.compile("^[A-Z][a-z]{2,}$");
@@ -74,4 +78,9 @@ public class UserRegistration {
         }
         return isValid;
     }
+    public boolean validation(String name,String Pattern){
+        IUserRegistration iUserRegistration = ((userInput, pattern) -> userInput.matches(pattern));
+        return iUserRegistration.validateUser(name,Pattern);
+    }
+
 }
