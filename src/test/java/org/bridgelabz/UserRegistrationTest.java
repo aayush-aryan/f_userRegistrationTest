@@ -191,4 +191,38 @@ public class UserRegistrationTest {
         }
         Assert.assertFalse(passwordFirstRule);
     }
+
+    @Test
+    public void givenPasswordHavingAtleastNumericNumber_whenValid_shouldReturnTrue(){
+        String password="1ghhhjjj";
+        boolean passwordThirdRule = false;
+        try {
+            passwordThirdRule = userRegistration.validatePasswordThirdRuleAtleastOneNumericNumber(password);
+        } catch (MyException e) {
+            e.printStackTrace();
+        }
+        Assert.assertTrue(passwordThirdRule);
+    }
+    @Test
+    public void givenPasswordNotHavingNumericNumber_whenInvalid_shouldReturnFalse(){
+        String password="ywwidjAjj";
+        boolean passwordThirdRule = false;
+        try {
+            passwordThirdRule = userRegistration.validatePasswordThirdRuleAtleastOneNumericNumber(password);
+        } catch (MyException e) {
+            e.printStackTrace();
+        }
+        Assert.assertFalse(passwordThirdRule);
+    }
+    @Test
+    public void givenPasswordNotHavingEightCharacters_whenInvalid_shouldReturnFalse(){
+        String password="123456";
+        boolean passwordThirdRule = false;
+        try {
+            passwordThirdRule = userRegistration.validatePasswordThirdRuleAtleastOneNumericNumber(password);
+        } catch (MyException e) {
+            e.printStackTrace();
+        }
+        Assert.assertFalse(passwordThirdRule);
+    }
 }
